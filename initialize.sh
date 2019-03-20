@@ -25,10 +25,37 @@ struct						s_data
 
 #endif" > $name/includes/$header
 
-echo "#includes $header
+echo "#include \"$header\"
 
 int		main(void)
 {
 	// code
 	return (0);
 }" > $name/srcs/main.c
+
+echo "NAME = $name
+
+CC = gcc
+CFLAGS = -Wall -Wextra -Werror
+
+SRC = srcs/main.c \
+
+OBJ = \$(SRC:.c=.o)
+
+INCLUDES = includes/
+
+all: \$(NAME)
+
+\$(NAME):	\$(OBJ)
+	\$(CC) \$(CFLAGS) -o \$(NAME) \$(OBJ) -I \$(INCLUDES)
+
+%.o: %.c \$(INCLUDES)$header
+	gcc -Wall -Wextra -Werror -o \$@ -c $< -I \$(INCLUDES)
+
+clean:
+	rm -f \$(OBJ)
+
+fclean:		clean
+	rm -f \$(NAME)
+
+re:			fclean all" > $name/Makefile
