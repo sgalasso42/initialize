@@ -1,4 +1,6 @@
 name=$1
+header=$name.h
+header_def=$( echo $name\_h | tr -s  '[:lower:]'  '[:upper:]' )
 
 if [ $# -eq 0 ]
 then
@@ -11,8 +13,8 @@ mkdir $name/srcs
 mkdir $name/rsrcs
 mkdir $name/includes
 
-echo "#ifndef $name
-# define $name
+echo "#ifndef $header_def
+# define $header_def
 
 typedef struct		s_data	t_data;
 
@@ -21,9 +23,9 @@ struct						s_data
 	// code
 };
 
-#endif" > $name/includes/$name.h
+#endif" > $name/includes/$header
 
-echo "#includes $name.h
+echo "#includes $header
 
 int		main(void)
 {
